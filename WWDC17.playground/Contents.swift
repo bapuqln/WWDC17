@@ -41,8 +41,8 @@ public class WelcomeScene: SKScene {
                 sunNode!.position.y = getMoonY(forX: selected.position.x+500) //again^^
                 
                 if (Int(selected.position.x) % 4 == 0) {
-                    //self.backgroundColor = getColorBackground(forX: selected.position.x)
-                    self.run(SKAction.colorize(with: getColorBackground(forX: selected.position.x), colorBlendFactor: 1.0, duration: 0.1))
+                    self.backgroundColor = getColorBackground(forX: selected.position.x)
+                    //self.run(SKAction.colorize(with: getColorBackground(forX: selected.position.x), colorBlendFactor: 1.0, duration: 0.1))
                 }
                 
                 //Don't overlap the text, if we will, fade out
@@ -59,15 +59,20 @@ public class WelcomeScene: SKScene {
                     let moonTrack = SKAction.customAction(withDuration: 10.5, actionBlock: {
                         [unowned self, sunNode]
                         node, time in
-                        if (node.position.x > -150 ) {
-                        node.position.y = self.getMoonY(forX: node.position.x - 6)
-                        node.position.x -= 6
                         
-                        sunNode!.position.x = node.position.x+500 //If we trace behind 500 we come up at the right time
-                        sunNode!.position.y = self.getMoonY(forX: node.position.x+500) //again^^
+                        
+                        if (node.position.x > -150 ) {
+                            node.position.y = self.getMoonY(forX: node.position.x - 4)
+                            node.position.x -= 4
+                            
+                            sunNode!.position.x = node.position.x+500 //If we trace behind 500 we come up at the right time
+                            sunNode!.position.y = self.getMoonY(forX: node.position.x+500) //again^^
                         }
+                    
                     })
                     
+                    //Launch our color to sky and kill the moon
+                    self.run(SKAction.colorize(with: #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1), colorBlendFactor: 1.0, duration: 3))
                     selected.run(moonTrack)
                 }
             }else if (selected.name == "positionDebugger") {
@@ -120,13 +125,13 @@ public class WelcomeScene: SKScene {
         sunNode!.physicsBody?.isDynamic = false
         self.addChild(sunNode!)
         
-        let positionDebugger = SKSpriteNode(color: #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1), size: CGSize(width: 25, height: 25))
+        let positionDebugger = SKSpriteNode(color: #colorLiteral(red: 0.7378575206, green: 0.2320150733, blue: 0.1414205134, alpha: 1), size: CGSize(width: 25, height: 25))
         positionDebugger.name = "positionDebugger"
         self.addChild(positionDebugger)
         
         positionDebugger.position = CGPoint(x: self.size.width * 0.25, y: self.size.height * 0.5)
-
-
+        
+        
     }
     
     func getMoonY(forX:CGFloat) -> CGFloat {
@@ -140,7 +145,7 @@ public class WelcomeScene: SKScene {
     }
     
     func getColorBackground(forX:CGFloat) ->UIColor {
-        let startCoord = 566.0
+        let startCoord = 768.0
         let endCoord = 0.0
         let stepSize = 1.0 / (startCoord-endCoord)
         let xPosition = startCoord - Double(forX)
