@@ -10,6 +10,8 @@
 	<string>Vision</string>
 	<key>ContentIdentifier</key>
 	<string>com.CarbonDev.Vision</string>
+	<key>ImageReference</key>
+	<string>BookIcon.png</string>
 	<key>DeploymentTarget</key>
 	<string>ios10.0</string>
 	<key>Chapters</key>
