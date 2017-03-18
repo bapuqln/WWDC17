@@ -56,7 +56,7 @@ public class WelcomeScene: SKScene {
                     selected.name = "moon tracking disabled"
                     helperText?.run(SKAction.fadeOut(withDuration: 0.1))
                     //Begin our track
-                    let moonTrack = SKAction.customAction(withDuration: 10.5, actionBlock: {
+                    let moonTrack = SKAction.customAction(withDuration: 5, actionBlock: {
                         [unowned self, sunNode]
                         node, time in
                         
@@ -74,6 +74,7 @@ public class WelcomeScene: SKScene {
                     //Launch our color to sky and kill the moon
                     self.run(SKAction.colorize(with: #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1), colorBlendFactor: 1.0, duration: 3))
                     selected.run(moonTrack)
+
                 }
             }else if (selected.name == "positionDebugger") {
                 selected.position.x += touchDelta.x
@@ -123,11 +124,13 @@ public class WelcomeScene: SKScene {
         sunNode!.size = CGSize(width: 250, height: 250)
         sunNode!.position = CGPoint(x: self.size.width, y: -250)
         sunNode!.physicsBody?.isDynamic = false
+        let rotateSun = SKAction.rotate(byAngle: 360, duration: 120)
+        sunNode!.run(SKAction.repeatForever(rotateSun))
         self.addChild(sunNode!)
         
         let positionDebugger = SKSpriteNode(color: #colorLiteral(red: 0.7378575206, green: 0.2320150733, blue: 0.1414205134, alpha: 1), size: CGSize(width: 25, height: 25))
         positionDebugger.name = "positionDebugger"
-        self.addChild(positionDebugger)
+        //self.addChild(positionDebugger)
         
         positionDebugger.position = CGPoint(x: self.size.width * 0.25, y: self.size.height * 0.5)
         
