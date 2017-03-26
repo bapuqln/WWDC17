@@ -55,7 +55,7 @@ public class SwingView : SKScene {
         self.addChild(swingBase)
         swingBaseNode = swingBase
         
-        swingHeightNode = SKLabelNode(text: "0.00")
+        swingHeightNode = SKLabelNode(text: "Ready... set.. swing!")
         swingHeightNode.position = CGPoint(x: swingBase.position.x, y: swingBase.position.y - 75)
         swingHeightNode.color = #colorLiteral(red: 0.0901960805058479, green: 0.133333340287209, blue: 0.0392156876623631, alpha: 1.0)
         swingHeightNode.fontName = "helvetica"
@@ -94,7 +94,7 @@ public class SwingView : SKScene {
                 if (i == 5) {
                     self.speakSwingDirection(didSwingRight: self.swingBaseNode.position.x >= self.frame.width/2)
                 }
-                self.swingHeightNode.text = "\(Double(Int(currentReading * 100)) / 100.0)"
+                self.swingHeightNode.text = "\(Double(Int(currentReading * 100)) / 100.0) units high"
                 if (currentReading > highestSwingPosition) {
                     highestSwingPosition = currentReading
                 }

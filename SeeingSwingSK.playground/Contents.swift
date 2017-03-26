@@ -1,3 +1,4 @@
+//#-hidden-code
 import PlaygroundSupport
 import SpriteKit
 
@@ -47,12 +48,12 @@ public class SwingView : SKScene {
         self.addChild(swingArm)
         
         let swingBase = SKSpriteNode(color: #colorLiteral(red: 0.925490200519562, green: 0.235294118523598, blue: 0.10196078568697, alpha: 1.0), size: CGSize(width: 200, height: 20))
-        swingBase.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 100, height: 20))
+        swingBase.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 200, height: 20))
         swingBase.position = CGPoint(x: CENTER_X, y: swingArm.position.y - swingArm.size.height/2)
         self.addChild(swingBase)
         swingBaseNode = swingBase
         
-        swingHeightNode = SKLabelNode(text: "0.00")
+        swingHeightNode = SKLabelNode(text: "Ready... set.. swing!")
         swingHeightNode.position = CGPoint(x: swingBase.position.x, y: swingBase.position.y - 75)
         swingHeightNode.color = #colorLiteral(red: 0.0901960805058479, green: 0.133333340287209, blue: 0.0392156876623631, alpha: 1.0)
         swingHeightNode.fontName = "helvetica"
@@ -72,18 +73,27 @@ public class SwingView : SKScene {
         self.physicsWorld.add(swingJoint)
     }
     
-    func pushSwing() {
+func pushSwing() {
+//#-end-hidden-code
+/*:
+# An (un)sightly swing!
+Below you can configure the amount of force the swing is pushed with. Try using positive a negative force amounts and note what they do.
+*/
+//#-editable-code
+let swingForceOnX = <#T##push force##Double#>
+//#-end-editable-code
+let forceVector = CGVector(dx: swingForceOnX , dy: 0)
+//Give our seat a little boost! 🚀
+swingBaseNode.physicsBody?.applyImpulse(forceVector)
+    //#-hidden-code
         let startHeightOffset = swingBaseNode.position.y
-        
-        swingBaseNode.physicsBody?.applyImpulse(CGVector(dx: 150, dy: 0))
         DispatchQueue.global(qos: DispatchQoS.QoSClass.userInteractive).async {
-            //var positionChart:[Int] = []
+
             var highestSwingPosition:CGFloat = 0;
-            for i in 1 ... 150 {
+            while true {
                 
                 let currentReading = self.swingBaseNode.position.y - startHeightOffset
-                let startHeightOffset = self.swingBaseNode.position.y 
-                self.swingHeightNode.text = "\(Double(Int(currentReading * 100)) / 100.0)"
+                self.swingHeightNode.text = "\(Double(Int(currentReading * 100)) / 100.0) units high"
                 if (currentReading > highestSwingPosition) {
                     highestSwingPosition = currentReading
                 }
@@ -91,7 +101,16 @@ public class SwingView : SKScene {
             }
         }
     }
+    //#-end-hidden-code
 }
+/*:
+ ***But wait!*** This demo is entirely inaccessible to those who can't see the output. You don't have to worry about that here but consider the important aspects of a swing push that would be necessary for a person to understand what's going on without needing to see it.
+ 
+ When you are ready to open this demo up to everyone, [continue to the next page](@next)
+ */
+
+//#-hidden-code
+
 let sceneView = SKView(frame: CGRect(x:0 , y:0, width: 864, height: 1248))
 let scene = SwingView(size: sceneView.frame.size)
 scene.prepare()
@@ -105,3 +124,5 @@ let dispathTime = DispatchTime.now() + 2
 DispatchQueue.main.asyncAfter(deadline: dispathTime, execute: {
     scene.pushSwing()
 })
+//#-end-hidden-code
+

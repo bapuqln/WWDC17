@@ -9,7 +9,7 @@
 	<key>DocumentType</key>
 	<string>PlaygroundBook</string>
 	<key>Name</key>
-	<string>Vision</string>
+	<string>com.CarbonDev.Vision</string>
 	<key>UpdateVersion</key>
 	<string>1.0</string>
 	<key>Updates</key>
@@ -17,7 +17,14 @@
 		<key>Added</key>
 		<array/>
 		<key>Modified</key>
-		<array/>
+		<array>
+			<dict>
+				<key>Diff</key>
+				<string>Chapters/Vision.playgroundchapter/Pages/SeeingSwing.playgroundpage/Contents.swift.delta</string>
+				<key>File</key>
+				<string>Chapters/Vision.playgroundchapter/Pages/SeeingSwing.playgroundpage/Contents.swift</string>
+			</dict>
+		</array>
 		<key>Removed</key>
 		<array/>
 		<key>Replaced</key>

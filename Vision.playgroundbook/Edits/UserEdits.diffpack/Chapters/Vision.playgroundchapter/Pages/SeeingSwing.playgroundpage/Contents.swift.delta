@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Diff</key>
+	<array>
+		<dict>
+			<key>ModifiedContent</key>
+			<string>-500</string>
+			<key>ModifiedRange</key>
+			<string>{4338, 4}</string>
+			<key>OriginalContent</key>
+			<string>&lt;#T##push force##Double#&gt;</string>
+			<key>OriginalRange</key>
+			<string>{4338, 25}</string>
+		</dict>
+	</array>
+	<key>File</key>
+	<string>Chapters/Vision.playgroundchapter/Pages/SeeingSwing.playgroundpage/Contents.swift</string>
+</dict>
+</plist>

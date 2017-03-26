@@ -54,7 +54,6 @@ public class WelcomeScene: SKScene {
         let touchDelta = CGPoint(x: touch.location(in: self).x - touch.previousLocation(in: self).x, y: touch.location(in: self).y - touch.previousLocation(in: self).y)
         if let selected = selectedNode {
             if (selected.name == "moon") {
-                //print("X: \(selected.position.x) y: \(selected.position.y)")
                 selected.position.x += touchDelta.x
                 selected.position.y = getMoonY(forX: touch.location(in: self).x)
                 sunNode!.position.x = selected.position.x+700 //If we trace behind 500 we come up at the right time
@@ -62,7 +61,6 @@ public class WelcomeScene: SKScene {
                 
                 if (Int(selected.position.x) % 4 == 0) {
                     self.backgroundColor = getColorBackground(forX: selected.position.x)
-                    //self.run(SKAction.colorize(with: getColorBackground(forX: selected.position.x), colorBlendFactor: 1.0, duration: 0.1))
                 }
                 
                 //Don't overlap the text, if we will, fade out
