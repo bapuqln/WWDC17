@@ -1,21 +1,17 @@
-/*:
- # 23.7 million Americans have compromised vision.
- # 17% of people aged 65 and greater report vision trouble.
- # 1.3 million are legally blind. 
- 
- This is less than half a percent of the U.S. population however as developers we need to create applications usable by all. This is simple for standard, everyday apps with tools such as iOS's VoiceOver.
- 
- VoiceOver, however, is poorly supported by many top applications and entirely inaccessible in games and other graphically heavy situations.
- 
- Today the vast majority of games have zero VoiceOver support. It doesn't have to be this way.
- 
- Expand the live view and tap "Run code" to begin.
- */
-
-//#-hidden-code
 import PlaygroundSupport
 import SpriteKit
 
+
+//
+//  WelcomeScene.swift
+//  WWDC17
+//
+//  Created by Salman Husain on 3/21/17.
+//  Copyright © 2017 CarbonDev. All rights reserved.
+//
+
+import Foundation
+import SpriteKit
 
 public class WelcomeScene: SKScene {
     var selectedNode:SKNode? = nil
@@ -23,11 +19,6 @@ public class WelcomeScene: SKScene {
     
     var sunNode:SKSpriteNode? = nil
     var helperText:SKLabelNode? = nil
-    
-    //Create our trees
-    var tree1Node:SKSpriteNode? = nil
-    var tree2Node:SKSpriteNode? = nil
-    var tree3Node:SKSpriteNode? = nil
     
     override public func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch = touches.first
@@ -54,6 +45,7 @@ public class WelcomeScene: SKScene {
         let touchDelta = CGPoint(x: touch.location(in: self).x - touch.previousLocation(in: self).x, y: touch.location(in: self).y - touch.previousLocation(in: self).y)
         if let selected = selectedNode {
             if (selected.name == "moon") {
+                //print("X: \(selected.position.x) y: \(selected.position.y)")
                 selected.position.x += touchDelta.x
                 selected.position.y = getMoonY(forX: touch.location(in: self).x)
                 sunNode!.position.x = selected.position.x+700 //If we trace behind 500 we come up at the right time
@@ -61,6 +53,7 @@ public class WelcomeScene: SKScene {
                 
                 if (Int(selected.position.x) % 4 == 0) {
                     self.backgroundColor = getColorBackground(forX: selected.position.x)
+                    //self.run(SKAction.colorize(with: getColorBackground(forX: selected.position.x), colorBlendFactor: 1.0, duration: 0.1))
                 }
                 
                 //Don't overlap the text, if we will, fade out
@@ -156,51 +149,40 @@ public class WelcomeScene: SKScene {
         
         let positionDebugger = SKSpriteNode(color: #colorLiteral(red: 0.7378575206, green: 0.2320150733, blue: 0.1414205134, alpha: 1), size: CGSize(width: 25, height: 25))
         //positionDebugger.name = "positionDebugger"
-        //self.addChild(positionDebugger)
+        self.addChild(positionDebugger)
         
         positionDebugger.position = CGPoint(x: self.size.width * 0.25, y: self.size.height * 0.5)
-    
-        //Setup our day props ahead of time (but don't set off the animation yet!) because it freezes the scene
-        tree1Node = createTreeAnimatedAt(forX: 120, treeImage: #imageLiteral(resourceName: "003-tree-3.png"))
-        tree2Node = createTreeAnimatedAt(forX: self.frame.width/2, treeImage: #imageLiteral(resourceName: "006-tree-1.png"))
-        tree3Node = createTreeAnimatedAt(forX: self.frame.width*0.75, treeImage: #imageLiteral(resourceName: "007-tree.png"))
     }
     
     func addDayProps() {
-        
-        tree1Node!.run(SKAction.move(to: CGPoint(x: 120, y: tree1Node!.frame.height/2), duration: 1), completion: {
+        let tree1 = createTreeAnimatedAt(forX: 120, treeImage: #imageLiteral(resourceName: "003-tree-3.png"))
+        tree1.run(SKAction.move(to: CGPoint(x: 120, y: tree1.frame.height/2), duration: 1), completion: {
             //We've add our first tree. Now add number two.
-            self.tree2Node!.run(SKAction.move(to: CGPoint(x: self.frame.width/2, y: self.tree2Node!.frame.height/2), duration: 1), completion: {
+            let tree2 = self.createTreeAnimatedAt(forX: self.frame.width/2, treeImage: #imageLiteral(resourceName: "006-tree-1.png"))
+            tree2.run(SKAction.move(to: CGPoint(x: self.frame.width/2, y: tree2.frame.height/2), duration: 1), completion: {
                 //We've add our second tree. Now add number three.
-                self.tree3Node!.run(SKAction.move(to: CGPoint(x: self.frame.width*0.75, y: self.tree3Node!.frame.height/2), duration: 1), completion: {
+                let tree3 = self.createTreeAnimatedAt(forX: self.frame.width*0.75, treeImage: #imageLiteral(resourceName: "007-tree.png"))
+                tree3.run(SKAction.move(to: CGPoint(x: self.frame.width*0.75, y: tree3.frame.height/2), duration: 1), completion: {
                     //We've add final tree.
                     
                     
                     
                     let titleText = SKLabelNode(text: "VISION")
                     titleText.fontSize = 95
-                    titleText.fontName = "EuphemiaUCAS"
+                    titleText.fontName = "SinhalaSangamMN-Bold"
                     titleText.color = .white
                     titleText.alpha = 0
                     titleText.position = CGPoint(x: self.frame.width/2, y: self.frame.height/2)
                     self.addChild(titleText)
-                    //you can see this -- but can everybody else?
-                    let subeTitlePrompt = SKLabelNode(text: "you can see this — but can everybody?")
-                    subeTitlePrompt.fontSize = 50
-                    subeTitlePrompt.color = .white
-                    subeTitlePrompt.alpha = 0
-                    subeTitlePrompt.position = CGPoint(x: self.size.width * 0.5, y: titleText.position.y-subeTitlePrompt.frame.height-20) //Place ourselves 25 below the bototm of the arrow
-                    self.addChild(subeTitlePrompt)
                     let continueText = SKLabelNode(text: "continue on the next page")
-                    continueText.fontSize = 25
+                    continueText.fontSize = 40
                     continueText.color = #colorLiteral(red: 0.3411357999, green: 0.3411998153, blue: 0.341131717, alpha: 1)
                     continueText.alpha = 0
-                    continueText.position = CGPoint(x: self.size.width * 0.5, y: subeTitlePrompt.position.y-continueText.frame.height-5)
+                    continueText.position = CGPoint(x: self.size.width * 0.5, y: titleText.position.y-continueText.frame.height-25) //Place ourselves 25 below the bototm of the arrow
                     self.addChild(continueText)
                     
-                    titleText.run(SKAction.fadeIn(withDuration: 1.5))
-                    subeTitlePrompt.run(SKAction.fadeIn(withDuration: 0.5))
-                    continueText.run(SKAction.fadeIn(withDuration: 0.5))
+                    continueText.run(SKAction.fadeIn(withDuration: 1.5))
+                    titleText.run(SKAction.fadeIn(withDuration: 0.5))
                 })
             })
         })
@@ -253,6 +235,4 @@ sceneView.presentScene(scene)
 PlaygroundPage.current.needsIndefiniteExecution = true
 
 PlaygroundSupport.PlaygroundPage.current.liveView = sceneView
-//#-end-hidden-code
-
 

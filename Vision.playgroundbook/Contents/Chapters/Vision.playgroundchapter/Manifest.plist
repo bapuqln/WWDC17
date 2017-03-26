@@ -5,11 +5,12 @@
 	<key>Version</key>
 	<string>1.0</string>
 	<key>Name</key>
-	<string>Vision 1</string>
+	<string>Vision</string>
 	<key>Pages</key>
 	<array>
-		<string>Page1.playgroundpage</string>
-		<string>Page2.playgroundpage</string>
+		<string>Welcome.playgroundpage</string>
+		<string>SeeingSwing.playgroundpage</string>
+		<string>BlindSwing.playgroundpage</string>
 	</array>
 </dict>
 </plist>

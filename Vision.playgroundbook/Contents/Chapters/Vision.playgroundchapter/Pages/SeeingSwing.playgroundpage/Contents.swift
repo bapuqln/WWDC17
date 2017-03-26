@@ -1,6 +1,5 @@
 import PlaygroundSupport
 import SpriteKit
-import AVFoundation
 
 public class SwingView : SKScene {
     var selectedNode:SKNode? = nil
@@ -8,8 +7,6 @@ public class SwingView : SKScene {
     
     var swingBaseNode:SKSpriteNode = SKSpriteNode(color: #colorLiteral(red: 0.968627452850342, green: 0.780392169952393, blue: 0.345098048448563, alpha: 1.0), size: CGSize(width: 0, height: 0))
     var swingHeightNode:SKLabelNode = SKLabelNode(text: nil)
-    
-    var speechSynth:AVSpeechSynthesizer? = AVSpeechSynthesizer();
     override public func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch = touches.first
         guard let positionInScene = touch?.location(in: self) else {return}
@@ -50,7 +47,7 @@ public class SwingView : SKScene {
         self.addChild(swingArm)
         
         let swingBase = SKSpriteNode(color: #colorLiteral(red: 0.925490200519562, green: 0.235294118523598, blue: 0.10196078568697, alpha: 1.0), size: CGSize(width: 200, height: 20))
-        swingBase.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 200, height: 20))
+        swingBase.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 100, height: 20))
         swingBase.position = CGPoint(x: CENTER_X, y: swingArm.position.y - swingArm.size.height/2)
         self.addChild(swingBase)
         swingBaseNode = swingBase
@@ -73,50 +70,27 @@ public class SwingView : SKScene {
         
         let swingJoint = SKPhysicsJointPin.joint(withBodyA: ceiling.physicsBody!, bodyB: swingArm.physicsBody!, anchor: ceiling.position)
         self.physicsWorld.add(swingJoint)
-        speak(message: "Ready to simulate")
     }
-    func speak(message:String) {
-        print(message)
-        speechSynth?.stopSpeaking(at: AVSpeechBoundary.immediate);
-        let utterance = AVSpeechUtterance(string: message)
-        utterance.rate = 0.6
-        speechSynth?.speak(utterance)
-    }
+    
     func pushSwing() {
-        speak(message: "Push")
         let startHeightOffset = swingBaseNode.position.y
-        swingBaseNode.physicsBody?.applyImpulse(CGVector(dx: 25, dy: 0))
+        
+        swingBaseNode.physicsBody?.applyImpulse(CGVector(dx: 150, dy: 0))
         DispatchQueue.global(qos: DispatchQoS.QoSClass.userInteractive).async {
+            //var positionChart:[Int] = []
             var highestSwingPosition:CGFloat = 0;
-            
-            for i in 1 ... 50 {
+            for i in 1 ... 150 {
+                
                 let currentReading = self.swingBaseNode.position.y - startHeightOffset
-                if (i == 5) {
-                    self.speakSwingDirection(didSwingRight: self.swingBaseNode.position.x >= self.frame.width/2)
-                }
+                let startHeightOffset = self.swingBaseNode.position.y 
                 self.swingHeightNode.text = "\(Double(Int(currentReading * 100)) / 100.0)"
                 if (currentReading > highestSwingPosition) {
                     highestSwingPosition = currentReading
                 }
-                
                 Thread.sleep(forTimeInterval: 0.05)
             }
-            self.speakSwingHighestPoint(highestPoint:  "\(Double(Int(highestSwingPosition * 100)) / 100.0)")
         }
     }
-    func speakSwingDirection(didSwingRight:Bool) {
-        if (didSwingRight) {
-            speak(message: "Swung right")
-        }else {
-            speak(message: "Swung left")
-        }
-    }
-    func speakSwingHighestPoint(highestPoint:String) {
-        speak(message: "max height of \(highestPoint) units")
-    }
-    
-    
-    
 }
 let sceneView = SKView(frame: CGRect(x:0 , y:0, width: 864, height: 1248))
 let scene = SwingView(size: sceneView.frame.size)
