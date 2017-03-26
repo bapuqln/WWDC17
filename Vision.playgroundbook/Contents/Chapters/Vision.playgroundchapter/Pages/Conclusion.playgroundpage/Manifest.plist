@@ -5,13 +5,10 @@
 	<key>Version</key>
 	<string>1.0</string>
 	<key>Name</key>
-	<string>Vision</string>
-	<key>Pages</key>
-	<array>
-		<string>Welcome.playgroundpage</string>
-		<string>SeeingSwing.playgroundpage</string>
-		<string>BlindSwing.playgroundpage</string>
-		<string>Conclusion.playgroundpage</string>
-	</array>
+	<string>Conclusion</string>
+	<key>LiveViewMode</key>
+	<string>HiddenByDefault</string>
+	<key>LiveViewEdgeToEdge</key>
+	<false/>
 </dict>
 </plist>

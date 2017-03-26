@@ -1,3 +1,4 @@
+//#-hidden-code
 import PlaygroundSupport
 import SpriteKit
 import AVFoundation
@@ -83,16 +84,36 @@ public class SwingView : SKScene {
         speechSynth?.speak(utterance)
     }
     func pushSwing() {
-        speak(message: "Push")
         let startHeightOffset = swingBaseNode.position.y
-        swingBaseNode.physicsBody?.applyImpulse(CGVector(dx: 25, dy: 0))
+        //#-end-hidden-code
+/*:
+# Making a swing for everyone
+Adding accessibility support may seem like a daunting task or simply not worth the time however it's not as hard to implement as it looks!
+         
+You'll need sound here so you can hear your VoiceOver. Be sure to keep your messages quick and concise. Everything is happening very fast and you don’t want to get jumbled messages!
+         
+Done? [Continue to conclusion](@next)
+*/
+//#-code-completion(everything, hide)
+//#-editable-code
+let swingForceOnX = <#T##push force##Double#>
+//#-end-editable-code
+let forceVector = CGVector(dx: swingForceOnX , dy: 0)
+//Give our seat a little boost! 🚀
+swingBaseNode.physicsBody?.applyImpulse(forceVector)
+//Give the user a good description about what is about to happen (i.e.: "push!")
+//#-editable-code
+speak(message: <#T##spoken String##String#>)
+//#-end-editable-code
+//#-hidden-code
+
         DispatchQueue.global(qos: DispatchQoS.QoSClass.userInteractive).async {
             var highestSwingPosition:CGFloat = 0;
             
             for i in 1 ... 50 {
                 let currentReading = self.swingBaseNode.position.y - startHeightOffset
                 if (i == 5) {
-                    self.speakSwingDirection(didSwingRight: self.swingBaseNode.position.x >= self.frame.width/2)
+                    self.speak(didSwingRight: self.swingBaseNode.position.x >= self.frame.width/2)
                 }
                 self.swingHeightNode.text = "\(Double(Int(currentReading * 100)) / 100.0) units high"
                 if (currentReading > highestSwingPosition) {
@@ -101,20 +122,43 @@ public class SwingView : SKScene {
                 
                 Thread.sleep(forTimeInterval: 0.05)
             }
-            self.speakSwingHighestPoint(highestPoint:  "\(Double(Int(highestSwingPosition * 100)) / 100.0)")
+            self.speak(swingHighestPoint:  Double(Int(highestSwingPosition * 100)) / 100.0)
         }
     }
-    func speakSwingDirection(didSwingRight:Bool) {
-        if (didSwingRight) {
-            speak(message: "Swung right")
-        }else {
-            speak(message: "Swung left")
-        }
-    }
-    func speakSwingHighestPoint(highestPoint:String) {
-        speak(message: "max height of \(highestPoint) units")
-    }
+    //#-end-hidden-code
     
+    
+/// Tell the user what direction the swing has swung. It's hard to know what direction positive and negative forces pushed the swing if we don't tell them!
+///
+/// - Parameter didSwingRight: A boolean that is true when the swing was initially pushed to the right
+func speak(didSwingRight:Bool) {
+//#-code-completion(everything, hide)
+if (didSwingRight) {
+    //Tell the user that the swing went to the right
+    //#-editable-code
+    speak(message: <#T##spoken String##String#>)
+    //#-end-editable-code
+}else {
+    //Tell the user that the swing went to the left this time instead
+    //#-editable-code
+    speak(message: <#T##spoken String##String#>)
+    //#-end-editable-code
+  }
+}
+    
+    
+/// It's also important to know how high the swing went. Tell the user how high their force pushed the swing!
+///
+/// - Parameter highestPoint: a double (i.e. 102.22) describing the highest point the swing reached in some unit
+func speak(swingHighestPoint:Double) {
+    //#-code-completion(everything, hide)
+    //#-code-completion(identifier, show, swingHighestPoint)
+    //Tell the user how high the seat went. You will need to concatenate highestPoint (a double!) into your message!
+    //#-editable-code
+    speak(message: <#T##spoken String##String#>)
+    //#-end-editable-code
+}
+//#-hidden-code
     
     
 }
@@ -131,3 +175,5 @@ let dispathTime = DispatchTime.now() + 2
 DispatchQueue.main.asyncAfter(deadline: dispathTime, execute: {
     scene.pushSwing()
 })
+//#-end-hidden-code
+
