@@ -126,11 +126,13 @@ speak(message: <#T##spoken String##String#>)
         }
     }
     //#-end-hidden-code
-    
-    
-/// Tell the user what direction the swing has swung. It's hard to know what direction positive and negative forces pushed the swing if we don't tell them!
-///
-/// - Parameter didSwingRight: A boolean that is true when the swing was initially pushed to the right
+	
+	
+/*:
+Tell the user what direction the swing has swung. It's hard to know what direction positive and negative forces pushed the swing if we don't tell them!
+
+`didSwingRight`: A boolean that is true when the swing was initially pushed to the right
+*/
 func speak(didSwingRight:Bool) {
 //#-code-completion(everything, hide)
 if (didSwingRight) {
@@ -145,11 +147,11 @@ if (didSwingRight) {
     //#-end-editable-code
   }
 }
-    
-    
-/// It's also important to know how high the swing went. Tell the user how high their force pushed the swing!
-///
-/// - Parameter highestPoint: a double (i.e. 102.22) describing the highest point the swing reached in some unit
+/*:
+It's also important to know how high the swing went. Tell the user how high their force pushed the swing!
+
+`highestPoint`: a double (i.e. 102.22) describing the highest point the swing reached in some unit
+*/
 func speak(swingHighestPoint:Double) {
     //#-code-completion(everything, hide)
     //#-code-completion(identifier, show, swingHighestPoint)
