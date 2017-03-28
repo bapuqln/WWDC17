@@ -90,7 +90,7 @@ public class SwingView : SKScene {
 # Making a swing for everyone
 Adding accessibility support may seem like a daunting task or simply not worth the time however it's not as hard to implement as it looks!
          
-You'll need sound here so you can hear your VoiceOver. Be sure to keep your messages quick and concise. Everything is happening very fast and you don’t want to get jumbled messages!
+You'll need sound here so you can hear your VoiceOver messages. Be sure to keep your messages quick and concise. Everything is happening very fast and you don’t want to get jumbled messages!
          
 Done? [Continue to conclusion](@next)
 */
@@ -129,7 +129,7 @@ speak(message: <#T##spoken String##String#>)
 	
 	
 /*:
-Tell the user what direction the swing has swung. It's hard to know what direction positive and negative forces pushed the swing if we don't tell them!
+Here we need to tell the user what direction the swing has swung. It's hard to know what direction positive and negative forces pushed the swing if we don't tell them!
 
 `didSwingRight`: A boolean that is true when the swing was initially pushed to the right
 */

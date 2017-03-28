@@ -77,7 +77,7 @@ func pushSwing() {
 //#-end-hidden-code
 /*:
 # An (un)sightly swing!
-Below you can configure the amount of force the swing is pushed with. Try using positive a negative force amounts and note what they do.
+Below you can configure the amount of force the swing is pushed with. Try using positive and a negative force amount and note what they do.
 */
 //#-editable-code
 let swingForceOnX = <#T##push force##Double#>
