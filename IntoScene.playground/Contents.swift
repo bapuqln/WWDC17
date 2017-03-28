@@ -32,7 +32,7 @@ public class WelcomeScene: SKScene {
     var tree1Node:SKSpriteNode? = nil
     var tree2Node:SKSpriteNode? = nil
     var tree3Node:SKSpriteNode? = nil
-    
+	
     override public func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touch = touches.first
         guard let positionInScene = touch?.location(in: self) else {return}
@@ -55,18 +55,19 @@ public class WelcomeScene: SKScene {
     
     override public func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else {return}
-        let touchDelta = CGPoint(x: touch.location(in: self).x - touch.previousLocation(in: self).x, y: touch.location(in: self).y - touch.previousLocation(in: self).y)
+		let touchX = touch.location(in: self).x
+        let touchDelta = CGPoint(x: touchX - touch.previousLocation(in: self).x, y: touch.location(in: self).y - touch.previousLocation(in: self).y)
         if let selected = selectedNode {
             if (selected.name == "moon") {
-                selected.position.x += touchDelta.x
-                selected.position.y = getMoonY(forX: touch.location(in: self).x)
-                sunNode!.position.x = selected.position.x+700 //If we trace behind 500 we come up at the right time
-                sunNode!.position.y = getMoonY(forX: selected.position.x+700) //again^^
-                
-                if (Int(selected.position.x) % 4 == 0) {
-                   // self.backgroundColor = getColorBackground(forX: selected.position.x)
-                }
-                
+				
+				//Don't move backwards, let them only move forwards which more or less forces them to do what we intedened. Greater than zero moves us right, we want left
+				if (touchX < 757) {
+					selected.position.x += touchDelta.x
+					selected.position.y = getMoonY(forX: touch.location(in: self).x)
+					sunNode!.position.x = selected.position.x+700 //If we trace behind 500 we come up at the right time
+					sunNode!.position.y = getMoonY(forX: selected.position.x+700) //again^^
+				}
+				
                 //Don't overlap the text, if we will, fade out
                 if (selected.position.y+(selected.frame.size.width/2) >= helperText!.position.y) {
                     helperText?.run(SKAction.fadeOut(withDuration: 0.1))
@@ -129,7 +130,6 @@ public class WelcomeScene: SKScene {
     public func prepareScene() {
         self.backgroundColor = UIColor.black
         addProps()
-        
     }
     
     
