@@ -3,11 +3,15 @@
  # 17% of people aged 65 and greater report vision trouble.
  # 1.3 million are legally blind. 
  
- This is less than half a percent of the U.S. population however as developers we need to create applications usable by all. This is simple for standard, everyday apps with tools such as iOS's VoiceOver.
+---
+
+ This is less than half a percent of the U.S. population however as developers we need to create applications usable by all. This is easy and automatic for basic, everyday apps with tools such as iOS's VoiceOver.
  
  VoiceOver, however, is poorly supported by many top applications and entirely inaccessible in games and other graphically heavy situations.
  
- Today the vast majority of games have zero VoiceOver support. It doesn't have to be this way.
+ Today the vast majority of games have zero VoiceOver support. 
+
+**It doesn't have to be this way.**
  
  Expand the live view and tap "Run code" to begin.
  */
@@ -60,7 +64,7 @@ public class WelcomeScene: SKScene {
                 sunNode!.position.y = getMoonY(forX: selected.position.x+700) //again^^
                 
                 if (Int(selected.position.x) % 4 == 0) {
-                    self.backgroundColor = getColorBackground(forX: selected.position.x)
+                   // self.backgroundColor = getColorBackground(forX: selected.position.x)
                 }
                 
                 //Don't overlap the text, if we will, fade out
@@ -168,24 +172,23 @@ public class WelcomeScene: SKScene {
     
     func addDayProps() {
         
-        tree1Node!.run(SKAction.move(to: CGPoint(x: 120, y: tree1Node!.frame.height/2), duration: 1), completion: {
+        tree1Node!.run(SKAction.move(to: CGPoint(x: 120, y: tree1Node!.frame.height/2), duration: 1.5), completion: {
             //We've add our first tree. Now add number two.
-            self.tree2Node!.run(SKAction.move(to: CGPoint(x: self.frame.width/2, y: self.tree2Node!.frame.height/2), duration: 1), completion: {
+            self.tree2Node!.run(SKAction.move(to: CGPoint(x: self.frame.width/2, y: self.tree2Node!.frame.height/2), duration: 1.5), completion: {
                 //We've add our second tree. Now add number three.
-                self.tree3Node!.run(SKAction.move(to: CGPoint(x: self.frame.width*0.75, y: self.tree3Node!.frame.height/2), duration: 1), completion: {
+                self.tree3Node!.run(SKAction.move(to: CGPoint(x: self.frame.width*0.75, y: self.tree3Node!.frame.height/2), duration: 1.5), completion: {
                     //We've add final tree.
                     
                     
                     
                     let titleText = SKLabelNode(text: "VISION")
                     titleText.fontSize = 95
-                    titleText.fontName = "EuphemiaUCAS"
                     titleText.color = .white
                     titleText.alpha = 0
                     titleText.position = CGPoint(x: self.frame.width/2, y: self.frame.height/2)
                     self.addChild(titleText)
-                    //you can see this -- but can everybody else?
-                    let subeTitlePrompt = SKLabelNode(text: "you can see this — but can everybody?")
+
+					let subeTitlePrompt = SKLabelNode(text: "you can see this — but can everybody?")
                     subeTitlePrompt.fontSize = 50
                     subeTitlePrompt.color = .white
                     subeTitlePrompt.alpha = 0
@@ -197,10 +200,16 @@ public class WelcomeScene: SKScene {
                     continueText.alpha = 0
                     continueText.position = CGPoint(x: self.size.width * 0.5, y: subeTitlePrompt.position.y-continueText.frame.height-5)
                     self.addChild(continueText)
-                    
-                    titleText.run(SKAction.fadeIn(withDuration: 1.5))
-                    subeTitlePrompt.run(SKAction.fadeIn(withDuration: 0.5))
-                    continueText.run(SKAction.fadeIn(withDuration: 0.5))
+					//Wait a bit after bringing the trees in. Slow the presentation down, too rushed otherwise
+					titleText.run(SKAction.wait(forDuration: 2), completion: {
+						subeTitlePrompt.run(SKAction.fadeIn(withDuration: 0.5))
+						//...and after they've presented fade our other one in
+						titleText.run(SKAction.wait(forDuration: 1.5), completion: {
+							titleText.run(SKAction.fadeIn(withDuration: 1.0))
+							continueText.run(SKAction.fadeIn(withDuration: 1.5))
+						})
+					})
+					
                 })
             })
         })
