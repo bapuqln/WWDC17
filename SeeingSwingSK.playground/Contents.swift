@@ -60,7 +60,7 @@ public class SwingView : SKScene {
         self.addChild(swingHeightNode)
         
         
-        let ceiling = SKSpriteNode(color: #colorLiteral(red: 0.466666668653488, green: 0.764705896377563, blue: 0.266666680574417, alpha: 1.0), size: CGSize(width: self.frame.width, height: 5))
+        let ceiling = SKSpriteNode(color: #colorLiteral(red: 0.258823543787003, green: 0.756862759590149, blue: 0.968627452850342, alpha: 1.0), size: CGSize(width: self.frame.width, height: 5))
         ceiling.position = CGPoint(x: self.frame.width/2, y: self.frame.height)
         ceiling.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: self.frame.width, height: 5))
         ceiling.physicsBody?.isDynamic = false
@@ -79,6 +79,7 @@ func pushSwing() {
 # An (un)sightly swing!
 Below you can configure the amount of force the swing is pushed with. Try using positive and a negative force amount and note what they do.
 */
+//#-code-completion(everything, hide)
 //#-editable-code
 let swingForceOnX = <#T##push force##Double#>
 //#-end-editable-code
@@ -111,10 +112,10 @@ swingBaseNode.physicsBody?.applyImpulse(forceVector)
 
 //#-hidden-code
 
-let sceneView = SKView(frame: CGRect(x:0 , y:0, width: 864, height: 1248))
+let sceneView = SKView(frame: CGRect(x:0 , y:0, width: 864, height: 1139)) //the height of the view when the keyboard row is presented
 let scene = SwingView(size: sceneView.frame.size)
 scene.prepare()
-sceneView.showsFPS = true
+//sceneView.showsFPS = true
 sceneView.presentScene(scene)
 
 PlaygroundPage.current.needsIndefiniteExecution = true

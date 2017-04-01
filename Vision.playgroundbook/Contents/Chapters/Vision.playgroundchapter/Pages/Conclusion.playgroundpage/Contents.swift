@@ -1,6 +1,6 @@
 /*:
  # The wrap up
- iOS has a long history of accessibility yet most of the usability in apps that users enjoy is a result of the systems automatic, silent aid. Many developers aren’t aware of its existence and importance and so their UI becomes painful if not impossible to navigate with VoiceOver.
+ iOS has a long history of accessibility yet most of the usability in apps that users enjoy is a result of the system's automatic, silent aid. Many developers aren’t aware of its existence and importance and so their UI becomes painful if not impossible to navigate with VoiceOver.
  
  The tools to make every type of application accessible already exist. Those with poor and limited vision are often left unable to use software that employs high tech and flashy design simply because no one invested the time to integrate the application properly.
  

@@ -201,7 +201,7 @@ public class WelcomeScene: SKScene {
                     continueText.position = CGPoint(x: self.size.width * 0.5, y: subeTitlePrompt.position.y-continueText.frame.height-5)
                     self.addChild(continueText)
 					//Wait a bit after bringing the trees in. Slow the presentation down, too rushed otherwise
-					titleText.run(SKAction.wait(forDuration: 2), completion: {
+					titleText.run(SKAction.wait(forDuration: 1), completion: {
 						subeTitlePrompt.run(SKAction.fadeIn(withDuration: 0.5))
 						//...and after they've presented fade our other one in
 						titleText.run(SKAction.wait(forDuration: 1.5), completion: {
@@ -256,7 +256,7 @@ let sceneView = SKView(frame: CGRect(x:0 , y:0, width: 1024, height: 768))
 
 let scene = WelcomeScene(size: sceneView.frame.size)
 scene.prepareScene()
-sceneView.showsFPS = true
+//sceneView.showsFPS = true
 sceneView.presentScene(scene)
 
 PlaygroundPage.current.needsIndefiniteExecution = true

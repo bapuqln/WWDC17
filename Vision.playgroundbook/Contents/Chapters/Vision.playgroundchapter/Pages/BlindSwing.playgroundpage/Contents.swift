@@ -63,7 +63,7 @@ public class SwingView : SKScene {
         self.addChild(swingHeightNode)
         
         
-        let ceiling = SKSpriteNode(color: #colorLiteral(red: 0.466666668653488, green: 0.764705896377563, blue: 0.266666680574417, alpha: 1.0), size: CGSize(width: self.frame.width, height: 5))
+        let ceiling = SKSpriteNode(color: #colorLiteral(red: 0.258823543787003, green: 0.756862759590149, blue: 0.968627452850342, alpha: 1.0), size: CGSize(width: self.frame.width, height: 5))
         ceiling.position = CGPoint(x: self.frame.width/2, y: self.frame.height)
         ceiling.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: self.frame.width, height: 5))
         ceiling.physicsBody?.isDynamic = false
@@ -102,6 +102,7 @@ let forceVector = CGVector(dx: swingForceOnX , dy: 0)
 //Give our seat a little boost! 🚀
 swingBaseNode.physicsBody?.applyImpulse(forceVector)
 //Give the user a good description about what is about to happen (i.e.: "push!")
+//#-code-completion(literal, show, string)
 //#-editable-code
 speak(message: <#T##spoken String##String#>)
 //#-end-editable-code
@@ -135,6 +136,7 @@ Here we need to tell the user what direction the swing has swung. It's hard to k
 */
 func speak(didSwingRight:Bool) {
 //#-code-completion(everything, hide)
+//#-code-completion(literal, show, string)
 if (didSwingRight) {
     //Tell the user that the swing went to the right
     //#-editable-code
@@ -155,6 +157,7 @@ It's also important to know how high the swing went. Tell the user how high thei
 func speak(swingHighestPoint:Double) {
     //#-code-completion(everything, hide)
     //#-code-completion(identifier, show, swingHighestPoint)
+    //#-code-completion(literal, show, string)
     //Tell the user how high the seat went. You will need to concatenate highestPoint (a double!) into your message!
     //#-editable-code
     speak(message: <#T##spoken String##String#>)
@@ -164,10 +167,10 @@ func speak(swingHighestPoint:Double) {
     
     
 }
-let sceneView = SKView(frame: CGRect(x:0 , y:0, width: 864, height: 1248))
+let sceneView = SKView(frame: CGRect(x:0 , y:0, width: 864, height: 1139)) //the height of the view when the keyboard row is presented
 let scene = SwingView(size: sceneView.frame.size)
 scene.prepare()
-sceneView.showsFPS = true
+//sceneView.showsFPS = true
 sceneView.presentScene(scene)
 
 PlaygroundPage.current.needsIndefiniteExecution = true
