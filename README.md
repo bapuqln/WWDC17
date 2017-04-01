@@ -1,6 +1,8 @@
 <p align="center">
   <img src="Screenshots/BookIcon.png" height="200"/>
 </p>
+
+
 # Vision: A Playground Book
 
 For my WWDC 2017 scholarship application I made a playground book about accessibility in iOS, specifically issues surrounding that of games. Games on iOS rarely have support for VoiceOver because developers rarely even remember that it exists.
